@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import aboutProfileImg from '../assets/WhatsApp Image 2026-03-16 at 5.23.18 PM.jpeg'
 
 export function HeroPage() {
   return (
@@ -10,7 +11,7 @@ export function HeroPage() {
             className="font-headline font-bold text-xl tracking-tighter text-on-surface"
             to="/#home"
           >
-            DESIGNER.PORTFOLIO
+            DEEPAK ROSHAN
           </Link>
           <div className="hidden md:flex items-center gap-12">
             <Link
@@ -77,10 +78,10 @@ export function HeroPage() {
           <div className="hero-name-wrap relative inline-block">
             <div className="hero-name-glow" aria-hidden="true"></div>
             <h1 className="font-headline font-bold text-6xl md:text-9xl mb-6 tracking-tighter leading-none text-glow">
-              <span className="hero-name-line1 inline-block">ALEXANDER</span>{' '}
+              <span className="hero-name-line1 inline-block">DEEPAK</span>{' '}
               <br />{' '}
               <span className="hero-name-line2 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                VAUGHN
+                ROSHAN
               </span>
             </h1>
           </div>
@@ -160,7 +161,7 @@ export function HeroPage() {
                   alt="Professional Profile"
                   className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                   data-alt="Close up portrait of a creative professional designer"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBT-Gt0Vupix_75nAgQKcMx7syWb6O22e87MJzq16sW6GMnFTJLaojQKB-wjTIUXLPXsbxH7Fz_wheq52l5FmLEc3panogFnGEVrJkZRU23P3-8MjRI4iDWnTCUAjLu7mCdm4qbwTvwh77AULugWOv5SbSiWh5QiGSL7ISkFZwT3eS5Ak2Hsl3zhxfKKl2xX80ptD0mcUrNccz7ghuR1BGU1E4QjzO1bn3Vw08DXn3hmx_6ahUGdcwwIHgRboLn1R36Nrl_j5iaXcZh"
+                  src={aboutProfileImg}
                 />
               </div>
               {/* Decorative elements */}

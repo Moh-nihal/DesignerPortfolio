@@ -66,7 +66,8 @@ html {
 .hero-animate .hero-name-line1 {
   opacity: 0;
   transform: translateY(12px);
-  animation: heroLineUp 1.05s ease-out 0.05s forwards;
+  /* cycles: reveal → hold → quick reset → reveal */
+  animation: heroLine1Cycle 10s ease-in-out 0.05s infinite;
   will-change: transform, opacity;
 }
 
@@ -75,7 +76,7 @@ html {
   display: inline-block;
   opacity: 0;
   transform: translateY(10px);
-  animation: heroLine2In 1.05s ease-out 0.2s forwards;
+  animation: heroLine2Cycle 10s ease-in-out 0.2s infinite;
   will-change: transform, opacity;
 }
 
@@ -94,7 +95,8 @@ html {
   transform: translateX(-120%);
   mix-blend-mode: screen;
   opacity: 0;
-  animation: heroSweep 1.15s ease-out 0.35s forwards;
+  /* repeat sweep periodically while title stays visible */
+  animation: heroSweepCycle 10s ease-in-out 0.35s infinite;
   pointer-events: none;
 }
 
@@ -155,27 +157,82 @@ html {
   filter: brightness(1.06);
 }
 
-@keyframes heroLineUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes heroLine2In {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes heroSweep {
+@keyframes heroLine1Cycle {
+  /* hidden */
   0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  /* reveal */
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* hold */
+  82% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  /* quick reset */
+  92% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes heroLine2Cycle {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  12% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  82% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  92% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@keyframes heroSweepCycle {
+  /* keep sweep off most of the time */
+  0%,
+  8% {
     opacity: 0;
     transform: translateX(-120%);
   }
-  15% {
+  12% {
     opacity: 0.95;
+  }
+  22% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+  /* second sweep later in the cycle (adds premium “breathing” motion) */
+  55%,
+  62% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  66% {
+    opacity: 0.85;
+  }
+  76% {
+    opacity: 0;
+    transform: translateX(120%);
   }
   100% {
     opacity: 0;
