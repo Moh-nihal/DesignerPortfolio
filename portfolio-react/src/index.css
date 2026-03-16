@@ -1,0 +1,478 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Shared helpers copied 1:1 from your HTML prototypes (plus a couple of fixes
+   needed to preserve exact output when moving off the Tailwind CDN). */
+
+html {
+  scroll-behavior: smooth;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  vertical-align: middle;
+}
+
+/* Preserve filled icons used in testimonials/services via data attribute. */
+.material-symbols-outlined[data-weight='fill'] {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.glass-panel {
+  background: rgba(53, 53, 52, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.glass-card {
+  background: rgba(53, 53, 52, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+.hero-gradient {
+  background: radial-gradient(circle at 50% 50%, #340080 0%, #131313 70%);
+}
+
+.text-glow {
+  text-shadow: 0 0 30px rgba(208, 188, 255, 0.3);
+}
+
+.glow-hover:hover {
+  box-shadow: 0 0 40px rgba(208, 188, 255, 0.08);
+}
+
+.cinematic-input {
+  border-bottom: 1px solid rgba(73, 68, 84, 0.2);
+  transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cinematic-input:focus {
+  border-bottom: 2px solid #d0bcff;
+  outline: none;
+}
+
+/* Tailwind doesn't generate `rounded-DEFAULT`; your prototypes use it, so we
+   polyfill it to keep the exact classnames/structure. */
+.rounded-DEFAULT {
+  border-radius: 0.125rem;
+}
+
+/* ------------------------------
+   Premium hero animations
+------------------------------ */
+
+.hero-animate .hero-name-line1 {
+  opacity: 0;
+  transform: translateY(12px);
+  animation: heroLineUp 1.05s ease-out 0.05s forwards;
+  will-change: transform, opacity;
+}
+
+.hero-animate .hero-name-line2 {
+  position: relative;
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(10px);
+  animation: heroLine2In 1.05s ease-out 0.2s forwards;
+  will-change: transform, opacity;
+}
+
+/* Glowing gradient sweep over second line */
+.hero-animate .hero-name-line2::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(208, 188, 255, 0.7) 35%,
+    rgba(20, 209, 255, 0.35) 60%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: translateX(-120%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation: heroSweep 1.15s ease-out 0.35s forwards;
+  pointer-events: none;
+}
+
+.hero-name-wrap {
+  isolation: isolate;
+}
+
+.hero-name-glow {
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  width: min(780px, 92vw);
+  height: min(420px, 50vh);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(160, 120, 255, 0.22) 0%,
+    rgba(52, 0, 128, 0.12) 35%,
+    rgba(19, 19, 19, 0) 72%
+  );
+  filter: blur(2px);
+  z-index: -1;
+  animation: heroGlowPulse 4.6s ease-in-out 0.2s infinite;
+  will-change: transform, opacity;
+}
+
+.hero-subtitle {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: heroSubtitleIn 1.1s ease-out 0.85s forwards;
+  will-change: transform, opacity;
+}
+
+.hero-buttons .hero-btn {
+  opacity: 0;
+  transform: translateY(12px);
+  will-change: transform, opacity;
+}
+
+.hero-buttons .hero-btn-1 {
+  animation: heroBtnIn 1.0s ease-out 1.05s forwards;
+}
+
+.hero-buttons .hero-btn-2 {
+  animation: heroBtnIn 1.0s ease-out 1.18s forwards;
+}
+
+.hero-buttons .hero-btn {
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease,
+    filter 250ms ease;
+}
+
+.hero-buttons .hero-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 28px rgba(208, 188, 255, 0.18);
+  filter: brightness(1.06);
+}
+
+@keyframes heroLineUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroLine2In {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroSweep {
+  0% {
+    opacity: 0;
+    transform: translateX(-120%);
+  }
+  15% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(120%);
+  }
+}
+
+@keyframes heroGlowPulse {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+}
+
+@keyframes heroSubtitleIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroBtnIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------
+   Scroll indicator bounce/pulse
+------------------------------ */
+
+.hero-scroll-indicator {
+  animation: heroScrollBob 2.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero-scroll-line {
+  transform-origin: top;
+  animation: heroScrollLine 2.6s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes heroScrollBob {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -7px);
+  }
+}
+
+@keyframes heroScrollLine {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleY(1.15);
+  }
+}
+
+/* ------------------------------
+   Expertise stack floating badges
+------------------------------ */
+
+.skill-badge {
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Full-section “floating constellation” layer */
+.about-float-stage {
+  position: relative;
+}
+
+.about-float-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.about-float-layer .skill-badge {
+  position: absolute;
+  pointer-events: auto; /* enable hover */
+  z-index: 1;
+  opacity: 0.82;
+  backface-visibility: hidden;
+  transform: translate3d(0, 0, 0);
+  transition:
+    box-shadow 250ms ease,
+    opacity 250ms ease,
+    filter 250ms ease;
+}
+
+.about-float-layer .skill-badge:hover {
+  opacity: 1;
+  filter: brightness(1.08);
+  box-shadow:
+    0 0 26px rgba(208, 188, 255, 0.16),
+    0 0 60px rgba(20, 209, 255, 0.06);
+}
+
+.about-float-layer .skill-badge:hover {
+  animation-play-state: paused;
+}
+
+/* Anchor points near edges so the drift doesn't sit on top of copy */
+.about-float-layer .expertise-ps {
+  left: 4%;
+  top: 18%;
+}
+.about-float-layer .expertise-ae {
+  right: 6%;
+  top: 14%;
+}
+.about-float-layer .expertise-pr {
+  left: 8%;
+  bottom: 14%;
+}
+.about-float-layer .expertise-ai {
+  right: 8%;
+  bottom: 18%;
+}
+.about-float-layer .expertise-c4d {
+  left: 50%;
+  top: 8%;
+  transform: translateX(-50%);
+}
+.about-float-layer .expertise-figma {
+  left: 56%;
+  bottom: 8%;
+  transform: translateX(-50%);
+}
+
+/* Long, multi-stop drift paths (200–500px) with subtle rotation */
+@keyframes drift1 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-1deg);
+  }
+  25% {
+    transform: translate3d(220px, -40px, 0) rotate(2deg);
+  }
+  55% {
+    transform: translate3d(340px, 140px, 0) rotate(-2deg);
+  }
+  80% {
+    transform: translate3d(140px, 220px, 0) rotate(1deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-1deg);
+  }
+}
+
+@keyframes drift2 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(2deg);
+  }
+  30% {
+    transform: translate3d(-260px, 60px, 0) rotate(-1deg);
+  }
+  60% {
+    transform: translate3d(-380px, 210px, 0) rotate(3deg);
+  }
+  85% {
+    transform: translate3d(-160px, 300px, 0) rotate(-2deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(2deg);
+  }
+}
+
+@keyframes drift3 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(-2deg);
+  }
+  22% {
+    transform: translate3d(180px, -120px, 0) rotate(1deg);
+  }
+  50% {
+    transform: translate3d(320px, -10px, 0) rotate(3deg);
+  }
+  78% {
+    transform: translate3d(420px, 160px, 0) rotate(-1deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-2deg);
+  }
+}
+
+@keyframes drift4 {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(1deg);
+  }
+  25% {
+    transform: translate3d(-210px, -90px, 0) rotate(-2deg);
+  }
+  55% {
+    transform: translate3d(-360px, 40px, 0) rotate(2deg);
+  }
+  82% {
+    transform: translate3d(-240px, 210px, 0) rotate(-3deg);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) rotate(1deg);
+  }
+}
+
+@keyframes drift5 {
+  0% {
+    transform: translateX(-50%) translate3d(0, 0, 0) rotate(-1deg);
+  }
+  28% {
+    transform: translateX(-50%) translate3d(260px, 120px, 0) rotate(2deg);
+  }
+  58% {
+    transform: translateX(-50%) translate3d(-140px, 260px, 0) rotate(-2deg);
+  }
+  84% {
+    transform: translateX(-50%) translate3d(120px, 360px, 0) rotate(1deg);
+  }
+  100% {
+    transform: translateX(-50%) translate3d(0, 0, 0) rotate(-1deg);
+  }
+}
+
+@keyframes drift6 {
+  0% {
+    transform: translateX(-50%) translate3d(0, 0, 0) rotate(2deg);
+  }
+  26% {
+    transform: translateX(-50%) translate3d(-240px, -80px, 0) rotate(-1deg);
+  }
+  56% {
+    transform: translateX(-50%) translate3d(140px, -220px, 0) rotate(3deg);
+  }
+  82% {
+    transform: translateX(-50%) translate3d(-120px, -340px, 0) rotate(-2deg);
+  }
+  100% {
+    transform: translateX(-50%) translate3d(0, 0, 0) rotate(2deg);
+  }
+}
+
+.drift-1 {
+  animation: drift1 36s ease-in-out infinite;
+  animation-delay: -6s;
+}
+.drift-2 {
+  animation: drift2 32s ease-in-out infinite;
+  animation-delay: -11s;
+}
+.drift-3 {
+  animation: drift3 40s ease-in-out infinite;
+  animation-delay: -4s;
+}
+.drift-4 {
+  animation: drift4 30s ease-in-out infinite;
+  animation-delay: -9s;
+}
+.drift-5 {
+  animation: drift5 38s ease-in-out infinite;
+  animation-delay: -14s;
+}
+.drift-6 {
+  animation: drift6 28s ease-in-out infinite;
+  animation-delay: -7s;
+}
+
+/* Responsive safety: reduce drift and keep touch UX clean */
+@media (max-width: 1023px) {
+  .about-float-layer {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-animate .hero-name-line1,
+  .hero-animate .hero-name-line2,
+  .hero-animate .hero-name-line2::after,
+  .hero-name-glow,
+  .hero-subtitle,
+  .hero-buttons .hero-btn,
+  .hero-scroll-indicator,
+  .hero-scroll-line,
+  .skill-badge {
+    animation: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
